@@ -1,19 +1,19 @@
--- Create the ScreenGui
+-- Create the main ScreenGui
 local gui = Instance.new("ScreenGui")
-gui.Name = "AdminGui"
+gui.Name = "MainGui"
 gui.Parent = game.Players.LocalPlayer.PlayerGui
 
 -- Create the main frame
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 200, 0, 300)
-mainFrame.Position = UDim2.new(0.5, -100, 0.5, -250)
+mainFrame.Size = UDim2.new(0, 200, 0, 200)
+mainFrame.Position = UDim2.new(0.5, -100, 0.5, -100)
 mainFrame.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = gui
 
--- Create title label
+-- Create the title label
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
 titleLabel.Size = UDim2.new(1, 0, 0, 20)
@@ -21,44 +21,12 @@ titleLabel.Position = UDim2.new(0, 0, 0, 0)
 titleLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 titleLabel.BorderSizePixel = 0
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.Text = "Admin Cmd Scripts"
+titleLabel.Text = "Admin Cmd Gui"
 titleLabel.Font = Enum.Font.SourceSans
 titleLabel.TextSize = 16
 titleLabel.Parent = mainFrame
 
--- Define script URLs
-local scripts = {
-    ["Infinity Yield"] = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",
-    ["Legs Admin Cmd"] = "https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua",
-    ["Nameless Admin Cmd"] = "https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source",
-    ["Fates Admin Cmd"] = "https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua",
-    ["Revis Admin Cmd"] = "https://pastebin.com/raw/Caniwq2N",
-}
-
--- Create buttons for each script
-local yOffset = 30  -- Initial vertical offset
-for name, url in pairs(scripts) do
-    local button = Instance.new("TextButton")
-    button.Name = "ScriptButton_"..name
-    button.Size = UDim2.new(0, 180, 0, 40)
-    button.Position = UDim2.new(0, 10, 0, yOffset)
-    button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-    button.BorderSizePixel = 0
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Text = name
-    button.Font = Enum.Font.SourceSans
-    button.TextSize = 14
-    button.Parent = mainFrame
-
-    button.MouseButton1Click:Connect(function()
-        loadstring(game:HttpGet(url, true))()
-        print("Script Executed: "..name)
-    end)
-
-    yOffset = yOffset + 50  -- Increase vertical offset for next button
-end
-
--- Create close button
+-- Create the X button in the top right corner
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Size = UDim2.new(0, 20, 0, 20)
@@ -71,6 +39,52 @@ closeButton.Font = Enum.Font.SourceSans
 closeButton.TextSize = 14
 closeButton.Parent = titleLabel
 
+local scripts2 = {
+    ["Infinity Yield"] = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",
+    ["Legs Admin Cmd"] = "https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua",
+    ["Nameless Admin Cmd"] = "https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source",
+    ["Fates Admin Cmd"] = "https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua",
+    ["Revis Admin Cmd"] = "https://pastebin.com/raw/Caniwq2N",
+}
+
+-- Create a frame to hold the buttons as a slider
+local buttonFrame = Instance.new("Frame")
+buttonFrame.Name = "ButtonFrame"
+buttonFrame.Size = UDim2.new(1, 0, 1, -20)
+buttonFrame.Position = UDim2.new(0, 0, 0, 20)
+buttonFrame.BackgroundTransparency = 1
+buttonFrame.Parent = mainFrame
+
+-- Function to toggle between sets of tools
+local toggle = false
+local function ToggleTools()
+    toggle = not toggle
+    buttonFrame:ClearAllChildren() -- Clear existing buttons
+    local scripts = toggle and scripts2 or scripts1 -- Select which set of tools to display
+    local yOffset = 5
+    for name, url in pairs(scripts) do
+        local button = Instance.new("TextButton")
+        button.Name = name .. "Button"
+        button.Size = UDim2.new(1, -10, 0, 30)
+        button.Position = UDim2.new(0, 5, 0, yOffset)
+        button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+        button.BorderSizePixel = 0
+        button.TextColor3 = Color3.fromRGB(255, 255, 255)
+        button.Text = name
+        button.Font = Enum.Font.SourceSans
+        button.TextSize = 14
+        button.Parent = buttonFrame
+
+        button.MouseButton1Click:Connect(function()
+            loadstring(game:HttpGet(url, true))()
+            print("Script Executed: " .. name)
+        end)
+
+        yOffset = yOffset + 35
+    end
+end
+
+-- Create the X button click event to close the GUI
 closeButton.MouseButton1Click:Connect(function()
     gui:Destroy()
 end)

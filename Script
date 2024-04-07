@@ -28,6 +28,7 @@ titleLabel.Parent = mainFrame
 
 -- Define script URLs
 local scripts = {
+    ["Infinity Yield"] = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",
     ["Legs Admin Cmd"] = "https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua",
     ["Nameless Admin Cmd"] = "https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source",
     ["Fates Admin Cmd"] = "https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua",

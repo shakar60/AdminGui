@@ -39,42 +39,13 @@ closeButton.Font = Enum.Font.SourceSans
 closeButton.TextSize = 14
 closeButton.Parent = titleLabel
 
-local scripts2 = {
+local script = {
     ["Infinity Yield"] = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",
     ["Legs Admin Cmd"] = "https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua",
     ["Nameless Admin Cmd"] = "https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source",
     ["Fates Admin Cmd"] = "https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua",
     ["Revis Admin Cmd"] = "https://pastebin.com/raw/Caniwq2N",
 }
-
--- Function to toggle between sets of tools
-local toggle = false
-local function ToggleTools()
-    toggle = not toggle
-    buttonFrame:ClearAllChildren() -- Clear existing buttons
-    local scripts = toggle and scripts2 or scripts1 -- Select which set of tools to display
-    local yOffset = 5
-    for name, url in pairs(scripts) do
-        local button = Instance.new("TextButton")
-        button.Name = name .. "Button"
-        button.Size = UDim2.new(1, -10, 0, 30)
-        button.Position = UDim2.new(0, 5, 0, yOffset)
-        button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-        button.BorderSizePixel = 0
-        button.TextColor3 = Color3.fromRGB(255, 255, 255)
-        button.Text = name
-        button.Font = Enum.Font.SourceSans
-        button.TextSize = 14
-        button.Parent = buttonFrame
-
-        button.MouseButton1Click:Connect(function()
-            loadstring(game:HttpGet(url, true))()
-            print("Script Executed: " .. name)
-        end)
-
-        yOffset = yOffset + 35
-    end
-end
 
 -- Create the X button click event to close the GUI
 closeButton.MouseButton1Click:Connect(function()

@@ -47,14 +47,6 @@ local scripts2 = {
     ["Revis Admin Cmd"] = "https://pastebin.com/raw/Caniwq2N",
 }
 
--- Create a frame to hold the buttons as a slider
-local buttonFrame = Instance.new("Frame")
-buttonFrame.Name = "ButtonFrame"
-buttonFrame.Size = UDim2.new(1, 0, 1, -20)
-buttonFrame.Position = UDim2.new(0, 0, 0, 20)
-buttonFrame.BackgroundTransparency = 1
-buttonFrame.Parent = mainFrame
-
 -- Function to toggle between sets of tools
 local toggle = false
 local function ToggleTools()
